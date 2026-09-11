@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Expense tracker with category summaries and editable records.">
+  <title>Expense Tracker | JavaScript Project 08</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">08</span><span>Expense Tracker<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
+  <main class="page app-shell">
+    <section class="app-heading"><div><div class="eyebrow">Spending Overview</div><h1>Know where your money goes</h1><p>Record expenses, organize them by category, and review a live spending summary.</p></div></section>
+    <section class="panel metrics">
+      <div class="metric"><span>Total spending</span><strong id="expenseTotal">₹0</strong></div>
+      <div class="metric"><span>Transactions</span><strong id="expenseCount">0</strong></div>
+      <div class="metric"><span>Top category</span><strong id="topCategory">—</strong></div>
+    </section>
+    <section class="grid-2">
+      <form class="panel" id="expenseForm">
+        <div class="panel-title"><h2 id="expenseFormTitle">Add expense</h2></div>
+        <div class="form-grid">
+          <div class="field"><label for="expenseAmount">Amount (₹)</label><input id="expenseAmount" type="number" min="1" step="0.01" required></div>
+          <div class="field"><label for="expenseCategory">Category</label><select id="expenseCategory"><option>Food</option><option>Travel</option><option>Housing</option><option>Learning</option><option>Health</option><option>Entertainment</option><option>Other</option></select></div>
+          <div class="field"><label for="expenseDate">Date</label><input id="expenseDate" type="date" required></div>
+          <div class="field"><label for="expenseDescription">Description</label><input id="expenseDescription" required maxlength="80" placeholder="What was it for?"></div>
+        </div>
+        <div class="actions"><button class="btn" type="submit" id="expenseSave">Add expense</button><button class="btn secondary hidden" type="button" id="expenseCancel">Cancel edit</button></div>
+      </form>
+      <div class="panel">
+        <div class="panel-title"><h2>Category breakdown</h2></div>
+        <div class="category-bars" id="categoryBars"></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-title"><h2>Expense history</h2><select id="expenseFilter" style="max-width:200px" aria-label="Filter expense category"><option value="all">All categories</option></select></div>
+      <div class="table-wrap"><table><thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th>Actions</th></tr></thead><tbody id="expenseRows"></tbody></table></div>
+    </section>
+  </main>
+  <footer class="footer">Project 08 of 09 · Numan Qureshi</footer>
+  <script src="./script.js"></script>
+</body>
+</html>

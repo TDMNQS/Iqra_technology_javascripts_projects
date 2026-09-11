@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Employee record management with create, search, update, and delete operations.">
+  <title>Employee Records | JavaScript Project 06</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">06</span><span>Employee Records<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
+  <main class="page app-shell">
+    <section class="app-heading"><div><div class="eyebrow">People Directory</div><h1>Manage employee records</h1><p>Create and maintain a searchable employee directory stored in the browser.</p></div></section>
+    <section class="grid-2">
+      <form class="panel" id="employeeForm">
+        <div class="panel-title"><h2 id="employeeFormTitle">Add employee</h2></div>
+        <div class="form-grid">
+          <div class="field"><label for="employeeName">Full name</label><input id="employeeName" required placeholder="e.g. Rehan Shaikh"></div>
+          <div class="field"><label for="employeeAge">Age</label><input id="employeeAge" type="number" min="18" max="75" required></div>
+          <div class="field"><label for="employeeEmail">Email</label><input id="employeeEmail" type="email" required placeholder="name@company.com"></div>
+          <div class="field"><label for="employeeDepartment">Department</label><select id="employeeDepartment"><option>Engineering</option><option>Design</option><option>Human Resources</option><option>Finance</option><option>Sales</option></select></div>
+        </div>
+        <div class="actions"><button class="btn" type="submit" id="employeeSave">Add employee</button><button class="btn secondary hidden" type="button" id="employeeCancel">Cancel edit</button></div>
+        <div class="status" id="employeeStatus" role="status"></div>
+      </form>
+      <div class="panel">
+        <div class="panel-title"><h2>Directory summary</h2></div>
+        <div class="metrics"><div class="metric"><span>Employees</span><strong id="employeeCount">0</strong></div><div class="metric"><span>Departments</span><strong id="departmentCount">0</strong></div><div class="metric"><span>Average age</span><strong id="averageAge">0</strong></div></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-title"><h2>Employee directory</h2><input id="employeeSearch" type="search" aria-label="Search employees" placeholder="Search name, email, age, department" style="max-width:360px"></div>
+      <div class="table-wrap"><table><thead><tr><th>Name</th><th>Age</th><th>Email</th><th>Department</th><th>Actions</th></tr></thead><tbody id="employeeRows"></tbody></table></div>
+    </section>
+  </main>
+  <footer class="footer">Project 06 of 09 · Numan Qureshi</footer>
+  <script src="./script.js"></script>
+</body>
+</html>

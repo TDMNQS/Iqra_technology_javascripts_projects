@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Monthly budget management with editable category allocations.">
+  <title>Budget Manager | JavaScript Project 03</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">03</span><span>Budget Manager<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
+  <main class="page app-shell">
+    <section class="app-heading"><div><div class="eyebrow">Monthly Planning</div><h1>Plan every rupee</h1><p>Set monthly income and manage category allocations from one clear view.</p></div></section>
+    <section class="panel metrics">
+      <div class="metric"><span>Monthly income</span><strong id="incomeMetric">₹0</strong></div>
+      <div class="metric"><span>Total allocated</span><strong id="allocatedMetric">₹0</strong></div>
+      <div class="metric"><span>Remaining</span><strong id="remainingMetric">₹0</strong></div>
+    </section>
+    <section class="grid-2">
+      <form class="panel" id="budgetForm">
+        <div class="panel-title"><h2 id="formTitle">Add budget</h2></div>
+        <div class="form-grid">
+          <div class="field full"><label for="income">Monthly income (₹)</label><input id="income" type="number" min="0" step="100" required></div>
+          <div class="field"><label for="category">Category</label><input id="category" required placeholder="e.g. Housing"></div>
+          <div class="field"><label for="amount">Allocated amount (₹)</label><input id="amount" type="number" min="1" step="1" required></div>
+          <div class="field full"><label for="note">Note</label><textarea id="note" placeholder="Optional planning note"></textarea></div>
+        </div>
+        <div class="actions"><button class="btn" type="submit" id="saveBtn">Add budget</button><button class="btn secondary hidden" type="button" id="cancelBtn">Cancel edit</button></div>
+        <div class="status" id="status" role="status"></div>
+      </form>
+      <div class="panel">
+        <div class="panel-title"><h2>Budget health</h2><span class="badge" id="healthBadge">On track</span></div>
+        <div class="summary-card"><div class="bar-track" style="height:14px"><div class="bar-fill" id="usageBar" style="width:0"></div></div><p class="muted" id="usageText">0% of income allocated</p></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-title"><h2>Category budgets</h2><span class="badge" id="budgetCount">0 categories</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Category</th><th>Amount</th><th>Note</th><th>Actions</th></tr></thead><tbody id="budgetRows"></tbody></table></div>
+    </section>
+  </main>
+  <footer class="footer">Project 03 of 09 · Numan Qureshi</footer>
+  <script src="./script.js"></script>
+</body>
+</html>

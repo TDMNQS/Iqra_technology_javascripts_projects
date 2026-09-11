@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Registration form with client-side validation and country currency mapping.">
+  <title>Registration Validation | JavaScript Project 09</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">09</span><span>Registration Validation<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
+  <main class="page app-shell">
+    <section class="app-heading"><div><div class="eyebrow">Client-side Validation</div><h1>Create your account</h1><p>Each field is checked before submission, and currency is filled from the selected country.</p></div></section>
+    <section class="grid-2">
+      <form class="panel" id="registrationForm" novalidate>
+        <div class="panel-title"><h2>Registration details</h2></div>
+        <div class="form-grid">
+          <div class="field full" data-field="fullName"><label for="fullName">Full name</label><input id="fullName" autocomplete="name" placeholder="Enter your full name"><span class="error"></span></div>
+          <div class="field full" data-field="password"><label for="password">Password</label><input id="password" type="password" autocomplete="new-password" placeholder="Minimum 6 characters"><span class="error"></span></div>
+          <div class="field" data-field="phone"><label for="phone">Phone number</label><input id="phone" inputmode="numeric" maxlength="15" placeholder="Numbers only"><span class="error"></span></div>
+          <div class="field" data-field="email"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com"><span class="error"></span></div>
+          <div class="field" data-field="country"><label for="country">Country</label><select id="country"><option value="">Select country</option><option value="India">India</option><option value="United States">United States</option><option value="United Kingdom">United Kingdom</option><option value="United Arab Emirates">United Arab Emirates</option><option value="Japan">Japan</option><option value="Canada">Canada</option><option value="Australia">Australia</option></select><span class="error"></span></div>
+          <div class="field"><label for="currency">Currency</label><input id="currency" readonly placeholder="Selected automatically"></div>
+        </div>
+        <div class="actions"><button class="btn" type="submit">Create account</button></div>
+        <div class="status" id="registrationStatus" role="status"></div>
+      </form>
+      <aside class="panel">
+        <div class="panel-title"><h2>Password requirements</h2></div>
+        <div class="summary-card">
+          <p id="ruleLength" class="muted">○ At least 6 characters</p>
+          <p id="ruleLetter" class="muted">○ At least one letter</p>
+          <p id="ruleNumber" class="muted">○ At least one number</p>
+          <p id="ruleSpecial" class="muted">○ At least one special character</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <footer class="footer">Project 09 of 09 · Numan Qureshi</footer>
+  <script src="./script.js"></script>
+</body>
+</html>
