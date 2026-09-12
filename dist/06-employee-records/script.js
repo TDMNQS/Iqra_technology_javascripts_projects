@@ -1,48 +1,26 @@
-const employeeKey = 'numan-employee-records';
-let employees = JSON.parse(localStorage.getItem(employeeKey) || 'null') || [
-  { id: 'e1', name: 'Aarav Patil', age: 27, email: 'aarav@company.com', department: 'Engineering' },
-  { id: 'e2', name: 'Sara Khan', age: 24, email: 'sara@company.com', department: 'Design' },
-  { id: 'e3', name: 'Kabir Mehta', age: 31, email: 'kabir@company.com', department: 'Finance' }
-];
-let editEmployeeId = null;
-const employeeForm = document.querySelector('#employeeForm');
-
-function persistEmployees() { localStorage.setItem(employeeKey, JSON.stringify(employees)); }
-function encode(value) { const el = document.createElement('span'); el.textContent = value; return el.innerHTML; }
-function resetEmployeeForm() {
-  editEmployeeId = null; employeeForm.reset();
-  document.querySelector('#employeeFormTitle').textContent = 'Add employee'; document.querySelector('#employeeSave').textContent = 'Add employee'; document.querySelector('#employeeCancel').classList.add('hidden');
+const employees = [];
+const form = document.querySelector('#employeeForm');
+let editIndex = -1;
+function resetForm() { form.reset(); editIndex = -1; document.querySelector('#saveEmployee').textContent = 'Add Employee'; document.querySelector('#cancelEdit').classList.add('hidden'); }
+function render() {
+  const query = document.querySelector('#search').value.trim().toLowerCase(); const body = document.querySelector('#employeeBody'); body.replaceChildren();
+  const matches = employees.map((employee, index) => ({ employee, index })).filter(({ employee }) => Object.values(employee).some(value => String(value).toLowerCase().includes(query)));
+  document.querySelector('#emptyState').classList.toggle('hidden', matches.length > 0);
+  matches.forEach(({ employee, index }) => {
+    const row = body.insertRow(); [employee.name, employee.age, employee.email, employee.department].forEach(value => { const cell = row.insertCell(); cell.textContent = value; });
+    const action = row.insertCell();
+    const edit = document.createElement('button'); edit.className = 'btn btn-warning btn-small'; edit.textContent = 'Edit'; edit.addEventListener('click', () => {
+      editIndex = index; Object.entries(employee).forEach(([key, value]) => { document.querySelector(`#${key}`).value = value; }); document.querySelector('#saveEmployee').textContent = 'Update Employee'; document.querySelector('#cancelEdit').classList.remove('hidden');
+    });
+    const remove = document.createElement('button'); remove.className = 'btn btn-danger btn-small'; remove.textContent = 'Delete'; remove.addEventListener('click', () => { employees.splice(index, 1); if (editIndex === index) resetForm(); render(); });
+    action.append(edit, document.createTextNode(' '), remove);
+  });
 }
-function renderEmployees() {
-  const search = document.querySelector('#employeeSearch').value.toLowerCase().trim();
-  const visible = employees.filter(employee => Object.values(employee).some(value => String(value).toLowerCase().includes(search)));
-  document.querySelector('#employeeCount').textContent = employees.length;
-  document.querySelector('#departmentCount').textContent = new Set(employees.map(employee => employee.department)).size;
-  document.querySelector('#averageAge').textContent = employees.length ? Math.round(employees.reduce((sum, employee) => sum + employee.age, 0) / employees.length) : 0;
-  document.querySelector('#employeeRows').innerHTML = visible.length ? visible.map(employee => `<tr><td><strong>${encode(employee.name)}</strong></td><td>${employee.age}</td><td>${encode(employee.email)}</td><td><span class="badge">${encode(employee.department)}</span></td><td><div class="actions" style="margin:0"><button class="btn secondary small" data-edit="${employee.id}">Edit</button><button class="btn danger small" data-delete="${employee.id}">Delete</button></div></td></tr>`).join('') : '<tr><td colspan="5" class="empty">No matching employees found.</td></tr>';
-}
-
-employeeForm.addEventListener('submit', event => {
-  event.preventDefault();
-  const email = employeeForm.employeeEmail.value.trim().toLowerCase();
-  const duplicate = employees.some(employee => employee.email.toLowerCase() === email && employee.id !== editEmployeeId);
-  if (duplicate) { document.querySelector('#employeeStatus').className = 'status danger'; document.querySelector('#employeeStatus').textContent = 'An employee with this email already exists.'; return; }
-  const record = { id: editEmployeeId || `${Date.now()}`, name: employeeForm.employeeName.value.trim(), age: Number(employeeForm.employeeAge.value), email, department: employeeForm.employeeDepartment.value };
-  employees = editEmployeeId ? employees.map(employee => employee.id === editEmployeeId ? record : employee) : [...employees, record];
-  persistEmployees(); resetEmployeeForm(); renderEmployees();
-  document.querySelector('#employeeStatus').className = 'status success'; document.querySelector('#employeeStatus').textContent = 'Employee record saved.';
+form.addEventListener('submit', event => {
+  event.preventDefault(); const employee = { name: document.querySelector('#name').value.trim(), age: Number(document.querySelector('#age').value), email: document.querySelector('#email').value.trim(), department: document.querySelector('#department').value.trim() };
+  const duplicate = employees.some((item, index) => item.email.toLowerCase() === employee.email.toLowerCase() && index !== editIndex);
+  if (duplicate) { document.querySelector('#status').textContent = 'This email already exists.'; document.querySelector('#status').className = 'status error'; return; }
+  if (editIndex >= 0) employees[editIndex] = employee; else employees.push(employee);
+  document.querySelector('#status').textContent = editIndex >= 0 ? 'Employee updated.' : 'Employee added.'; document.querySelector('#status').className = 'status success'; resetForm(); render();
 });
-
-document.querySelector('#employeeSearch').addEventListener('input', renderEmployees);
-document.querySelector('#employeeCancel').addEventListener('click', resetEmployeeForm);
-document.querySelector('#employeeRows').addEventListener('click', event => {
-  const edit = event.target.dataset.edit; const remove = event.target.dataset.delete;
-  if (remove) { employees = employees.filter(employee => employee.id !== remove); persistEmployees(); renderEmployees(); }
-  if (edit) {
-    const employee = employees.find(item => item.id === edit); editEmployeeId = edit;
-    employeeForm.employeeName.value = employee.name; employeeForm.employeeAge.value = employee.age; employeeForm.employeeEmail.value = employee.email; employeeForm.employeeDepartment.value = employee.department;
-    document.querySelector('#employeeFormTitle').textContent = 'Edit employee'; document.querySelector('#employeeSave').textContent = 'Save changes'; document.querySelector('#employeeCancel').classList.remove('hidden'); employeeForm.employeeName.focus();
-  }
-});
-
-renderEmployees();
+document.querySelector('#cancelEdit').addEventListener('click', resetForm); document.querySelector('#search').addEventListener('input', render); render();

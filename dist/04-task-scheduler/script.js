@@ -1,55 +1,38 @@
-const key = 'numan-task-scheduler';
-let tasks = JSON.parse(localStorage.getItem(key) || 'null') || [
-  { id: 't1', name: 'Review JavaScript DOM concepts', due: new Date(Date.now() + 86400000).toISOString().slice(0,10), priority: 'High', done: false },
-  { id: 't2', name: 'Prepare project demonstration', due: new Date(Date.now() + 259200000).toISOString().slice(0,10), priority: 'Medium', done: false }
-];
-let editing = null;
+const tasks = [];
 const form = document.querySelector('#taskForm');
+let editIndex = -1;
 
-function save() { localStorage.setItem(key, JSON.stringify(tasks)); }
-function clean(value) { const span = document.createElement('span'); span.textContent = value; return span.innerHTML; }
-function niceDate(value) { return new Date(`${value}T00:00:00`).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }); }
-
-function filteredTasks() {
-  const filter = document.querySelector('#taskFilter').value;
-  return tasks.filter(task => filter === 'all' || (filter === 'completed' ? task.done : !task.done)).sort((a,b) => a.due.localeCompare(b.due));
+function resetForm() {
+  form.reset(); editIndex = -1;
+  document.querySelector('#saveTask').textContent = 'Add Task';
+  document.querySelector('#cancelEdit').classList.add('hidden');
 }
 
 function render() {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const soon = new Date(today); soon.setDate(soon.getDate() + 3);
-  document.querySelector('#totalTasks').textContent = tasks.length;
-  document.querySelector('#completedTasks').textContent = tasks.filter(task => task.done).length;
-  document.querySelector('#dueSoonTasks').textContent = tasks.filter(task => !task.done && new Date(`${task.due}T00:00:00`) <= soon).length;
-  const visible = filteredTasks();
-  document.querySelector('#taskRows').innerHTML = visible.length ? visible.map(task => `<tr><td><button class="btn ${task.done ? '' : 'secondary'} small" data-toggle="${task.id}">${task.done ? 'Done' : 'Open'}</button></td><td style="${task.done ? 'text-decoration:line-through;color:var(--muted)' : ''}"><strong>${clean(task.name)}</strong></td><td>${niceDate(task.due)}</td><td><span class="badge ${task.priority.toLowerCase()}">${task.priority}</span></td><td><div class="actions" style="margin:0"><button class="btn secondary small" data-edit="${task.id}">Edit</button><button class="btn danger small" data-delete="${task.id}">Delete</button></div></td></tr>`).join('') : '<tr><td colspan="5" class="empty">No tasks in this view.</td></tr>';
-}
-
-function cancelEdit() {
-  editing = null; form.reset(); document.querySelector('#priority').value = 'Medium';
-  document.querySelector('#taskFormTitle').textContent = 'Add task'; document.querySelector('#taskSave').textContent = 'Add task'; document.querySelector('#taskCancel').classList.add('hidden');
+  const list = document.querySelector('#taskList'); list.replaceChildren();
+  document.querySelector('#emptyState').classList.toggle('hidden', tasks.length > 0);
+  tasks.forEach((task, index) => {
+    const item = document.createElement('li'); item.className = 'task-item';
+    const details = document.createElement('div');
+    const title = document.createElement('strong'); title.textContent = task.name;
+    const meta = document.createElement('div'); meta.className = `priority-${task.priority}`; meta.textContent = `${task.dueDate} · ${task.priority.toUpperCase()}`;
+    details.append(title, meta);
+    const actions = document.createElement('div'); actions.className = 'task-actions';
+    const edit = document.createElement('button'); edit.className = 'btn btn-warning btn-small'; edit.textContent = 'Edit';
+    edit.addEventListener('click', () => {
+      editIndex = index; document.querySelector('#taskName').value = task.name; document.querySelector('#dueDate').value = task.dueDate; document.querySelector('#priority').value = task.priority;
+      document.querySelector('#saveTask').textContent = 'Update Task'; document.querySelector('#cancelEdit').classList.remove('hidden');
+    });
+    const remove = document.createElement('button'); remove.className = 'btn btn-danger btn-small'; remove.textContent = 'Delete';
+    remove.addEventListener('click', () => { tasks.splice(index, 1); if (editIndex === index) resetForm(); render(); });
+    actions.append(edit, remove); item.append(details, actions); list.append(item);
+  });
 }
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-  const task = { id: editing || `${Date.now()}`, name: form.taskName.value.trim(), due: form.dueDate.value, priority: form.priority.value, done: editing ? tasks.find(item => item.id === editing).done : false };
-  tasks = editing ? tasks.map(item => item.id === editing ? task : item) : [...tasks, task];
-  save(); cancelEdit(); render();
+  const task = { name: document.querySelector('#taskName').value.trim(), dueDate: document.querySelector('#dueDate').value, priority: document.querySelector('#priority').value };
+  if (editIndex >= 0) tasks[editIndex] = task; else tasks.push(task);
+  resetForm(); render();
 });
-
-document.querySelector('#taskCancel').addEventListener('click', cancelEdit);
-document.querySelector('#taskFilter').addEventListener('change', render);
-document.querySelector('#taskRows').addEventListener('click', event => {
-  const id = event.target.dataset.toggle || event.target.dataset.edit || event.target.dataset.delete;
-  if (!id) return;
-  if (event.target.dataset.toggle) tasks = tasks.map(task => task.id === id ? { ...task, done: !task.done } : task);
-  if (event.target.dataset.delete) tasks = tasks.filter(task => task.id !== id);
-  if (event.target.dataset.edit) {
-    const task = tasks.find(item => item.id === id); editing = id;
-    form.taskName.value = task.name; form.dueDate.value = task.due; form.priority.value = task.priority;
-    document.querySelector('#taskFormTitle').textContent = 'Edit task'; document.querySelector('#taskSave').textContent = 'Save changes'; document.querySelector('#taskCancel').classList.remove('hidden'); form.taskName.focus();
-  }
-  save(); render();
-});
-
-render();
+document.querySelector('#cancelEdit').addEventListener('click', resetForm);

@@ -1,35 +1,6 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="OTP generation and verification with an expiry countdown.">
-  <title>OTP Verification | JavaScript Project 01</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307111f'/%3E%3Cpath d='M17 17h30v30H17z' fill='%235eead4'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="../shared/style.css">
-</head>
-<body>
-  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">01</span><span>OTP Verification<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
-  <main class="page app-shell">
-    <section class="app-heading"><div><div class="eyebrow">Authentication Utility</div><h1>Verify your code</h1><p>Generate a temporary OTP, then enter it before the countdown reaches zero.</p></div></section>
-    <section class="grid-2">
-      <div class="panel">
-        <div class="panel-title"><h2>Generated OTP</h2><span class="badge" id="timer">01:00</span></div>
-        <div class="field"><label for="otpLength">Code length</label><select id="otpLength"><option value="4">4 digits</option><option value="6" selected>6 digits</option></select></div>
-        <div class="otp-display" id="otpDisplay" aria-live="polite"></div>
-        <p class="hint">This code is displayed only for this front-end demonstration.</p>
-        <div class="actions"><button class="btn secondary" id="generateBtn" type="button">Generate new OTP</button></div>
-      </div>
-      <div class="panel">
-        <div class="panel-title"><h2>Enter code</h2></div>
-        <form id="verifyForm" novalidate>
-          <div class="field"><label for="otpInput">One-time password</label><input id="otpInput" inputmode="numeric" autocomplete="one-time-code" placeholder="Enter the generated code"><span class="hint">Numbers only</span></div>
-          <div class="actions"><button class="btn" id="verifyBtn" type="submit">Verify OTP</button></div>
-          <div class="status" id="status" role="status"></div>
-        </form>
-      </div>
-    </section>
-  </main>
-  <footer class="footer">Project 01 of 09 · Numan Qureshi</footer>
-  <script src="./script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OTP Project</title><link rel="stylesheet" href="../shared/assignment.css"></head><body>
+<a class="top-link" href="../">← All projects</a><main class="container narrow"><h1>OTP Project</h1>
+<div class="form-row"><label for="otp">OTP:</label><input id="otp" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="Enter 4-digit OTP"></div>
+<div class="actions"><button class="btn" id="getOtpBtn" type="button">Get Otp</button><button class="btn success" id="checkOtpBtn" type="button">Check Otp</button></div>
+<h2 id="display" class="timer">0 : 0</h2><p id="timer" class="muted">Generate an OTP to start the 2-minute timer.</p><p id="status" class="status" role="status" aria-live="polite"></p>
+</main><script src="./script.js"></script></body></html>

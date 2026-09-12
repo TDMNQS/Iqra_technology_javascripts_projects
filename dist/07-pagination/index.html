@@ -1,22 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Client-side pagination for a list of 100 items.">
-  <title>Pagination | JavaScript Project 07</title>
-  <link rel="stylesheet" href="../shared/style.css">
-</head>
-<body>
-  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">07</span><span>Pagination<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
-  <main class="page app-shell">
-    <section class="app-heading"><div><div class="eyebrow">Record Browser</div><h1>One hundred items, ten at a time</h1><p>Navigate with previous, next, or direct page controls while the visible range updates automatically.</p></div></section>
-    <section class="panel">
-      <div class="panel-title"><h2>Learning resources</h2><span class="badge" id="rangeLabel"></span></div>
-      <div class="item-list" id="itemList"></div>
-      <nav class="pagination" id="pagination" aria-label="Pagination"></nav>
-    </section>
-  </main>
-  <footer class="footer">Project 07 of 09 · Numan Qureshi</footer>
-  <script src="./script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pagination</title><link rel="stylesheet" href="../shared/assignment.css"></head><body>
+<a class="top-link" href="../">← All projects</a><main class="container narrow"><h1 class="project-title">List of Items</h1><ul id="itemList" class="item-list"></ul>
+<div class="pagination" id="paginationContainer"><button id="prevBtn" type="button">Previous</button><span id="pageNumbers" class="pagination"></span><button id="nextBtn" type="button">Next</button></div>
+<p class="muted" id="pageInfo"></p></main><script src="./script.js"></script></body></html>

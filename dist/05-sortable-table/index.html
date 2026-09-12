@@ -1,33 +1,5 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Sortable and filterable product data table.">
-  <title>Sortable Product Table | JavaScript Project 05</title>
-  <link rel="stylesheet" href="../shared/style.css">
-</head>
-<body>
-  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">05</span><span>Product Table<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
-  <main class="page app-shell">
-    <section class="app-heading"><div><div class="eyebrow">Dataset Explorer</div><h1>Find and compare products</h1><p>Search by name, filter by category, or select a column heading to reorder the results.</p></div></section>
-    <section class="panel">
-      <div class="form-grid">
-        <div class="field"><label for="search">Search products</label><input id="search" type="search" placeholder="Search by product name"></div>
-        <div class="field"><label for="categoryFilter">Category</label><select id="categoryFilter"><option value="all">All categories</option></select></div>
-      </div>
-      <div class="panel-title" style="margin:22px 0 12px"><h2>Products</h2><span class="badge" id="resultCount"></span></div>
-      <div class="table-wrap">
-        <table><thead><tr>
-          <th><button class="sort-button" data-sort="name">Product <span></span></button></th>
-          <th><button class="sort-button" data-sort="price">Price <span></span></button></th>
-          <th><button class="sort-button" data-sort="category">Category <span></span></button></th>
-          <th><button class="sort-button" data-sort="rating">Rating <span></span></button></th>
-          <th><button class="sort-button" data-sort="stock">Stock <span></span></button></th>
-        </tr></thead><tbody id="productRows"></tbody></table>
-      </div>
-    </section>
-  </main>
-  <footer class="footer">Project 05 of 09 · Numan Qureshi</footer>
-  <script src="./script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sortable and Filterable Table</title><link rel="stylesheet" href="../shared/assignment.css"></head><body>
+<a class="top-link" href="../">← All projects</a><main class="container medium"><h1 class="project-title">Sortable and Filterable Table</h1>
+<div class="row"><div class="col-6 form-row"><label for="searchInput">Search Product</label><input id="searchInput" placeholder="Type product name..."></div><div class="col-6 form-row"><label for="categoryFilter">Category</label><select id="categoryFilter"><option value="">All Categories</option></select></div></div>
+<div class="table-wrap"><table id="dataTable"><thead><tr><th class="sortable" data-key="name">Product Name ↕</th><th class="sortable" data-key="price">Price ↕</th><th class="sortable" data-key="category">Category ↕</th></tr></thead><tbody id="productBody"></tbody></table></div>
+<p id="resultCount" class="muted"></p></main><script src="./script.js"></script></body></html>

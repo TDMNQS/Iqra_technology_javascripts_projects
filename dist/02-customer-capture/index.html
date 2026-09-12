@@ -1,44 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Dynamic customer capture form for individual and business customers.">
-  <title>Customer Capture | JavaScript Project 02</title>
-  <link rel="stylesheet" href="../shared/style.css">
-</head>
-<body>
-  <header class="site-header"><a class="brand" href="../"><span class="brand-mark">02</span><span>Customer Capture<small>JavaScript Project</small></span></a><a class="header-link" href="../">← All projects</a></header>
-  <main class="page app-shell">
-    <section class="app-heading"><div><div class="eyebrow">Adaptive Form</div><h1>New customer profile</h1><p>The form reveals only the information relevant to the selected customer type.</p></div></section>
-    <section class="grid-2">
-      <form class="panel" id="customerForm">
-        <div class="panel-title"><h2>Customer details</h2><span class="badge" id="typeBadge">Individual</span></div>
-        <div class="form-grid">
-          <div class="field full"><label for="customerType">Customer type</label><select id="customerType"><option value="individual">Individual</option><option value="business">Business</option></select></div>
-          <div class="field"><label for="fullName">Contact name</label><input id="fullName" required placeholder="e.g. Aisha Khan"></div>
-          <div class="field"><label for="email">Email address</label><input id="email" type="email" required placeholder="name@example.com"></div>
-          <div class="field full"><label for="phone">Phone number</label><input id="phone" type="tel" required pattern="[0-9]{10}" maxlength="10" placeholder="10-digit number"></div>
-        </div>
-        <div id="individualFields" class="form-grid" style="margin-top:16px">
-          <div class="field"><label for="dob">Date of birth</label><input id="dob" type="date"></div>
-          <div class="field"><label for="idType">Identity type</label><select id="idType"><option>Aadhaar</option><option>PAN</option><option>Passport</option></select></div>
-          <div class="field full"><label for="idNumber">Identity number</label><input id="idNumber" placeholder="Enter document number"></div>
-        </div>
-        <div id="businessFields" class="form-grid hidden" style="margin-top:16px">
-          <div class="field full"><label for="companyName">Company name</label><input id="companyName" placeholder="Registered business name"></div>
-          <div class="field"><label for="taxId">GSTIN</label><input id="taxId" placeholder="15-character GSTIN"></div>
-          <div class="field"><label for="employees">Employee count</label><input id="employees" type="number" min="1" placeholder="e.g. 24"></div>
-        </div>
-        <div class="actions"><button class="btn" type="submit">Create profile</button><button class="btn secondary" type="reset">Clear</button></div>
-      </form>
-      <aside class="panel">
-        <div class="panel-title"><h2>Profile preview</h2></div>
-        <div id="emptyPreview" class="empty">Complete the form to preview the captured customer record.</div>
-        <div id="profilePreview" class="summary-card hidden" aria-live="polite"></div>
-      </aside>
-    </section>
-  </main>
-  <footer class="footer">Project 02 of 09 · Numan Qureshi</footer>
-  <script src="./script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Customer Project</title><link rel="stylesheet" href="../shared/assignment.css"></head><body>
+<a class="top-link" href="../">← All projects</a><main class="container"><div class="row">
+<section class="col-4"><h1>Form</h1><form id="customerForm">
+<div class="form-row"><label for="name">Name</label><input id="name" required></div><div class="form-row"><label for="email">Email</label><input id="email" type="email" required></div>
+<div class="form-row"><label for="customerType">Customer Type</label><select id="customerType" required><option value="">Select</option><option value="existing">Existing</option><option value="new">New</option></select></div>
+<div class="form-row hidden" id="amountRow"><label for="amount">Amount</label><input id="amount" type="number" min="0" step="1"></div>
+<button class="btn success" type="submit">Submit</button><p id="status" class="status" role="status"></p></form></section>
+<section class="col-4"><h1>Existing Customers</h1><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Amount</th><th>Action</th></tr></thead><tbody id="existingBody"></tbody></table></div></section>
+<section class="col-4"><h1>New Customers</h1><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Action</th></tr></thead><tbody id="newBody"></tbody></table></div></section>
+</div></main><script src="./script.js"></script></body></html>
