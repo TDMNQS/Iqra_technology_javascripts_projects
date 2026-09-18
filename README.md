@@ -25,6 +25,6 @@ Nine working JavaScript projects created by **Numan Qureshi** for the Iqra Techn
 
 Open `dist/index.html` in a browser, or serve the `dist` folder with any static web server.
 
-## Author 
+## Author
 
 Numan Qureshi — B.Tech Information Technology, MGM University
