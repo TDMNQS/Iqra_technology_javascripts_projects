@@ -14,7 +14,7 @@ Nine working JavaScript projects created by **Numan Qureshi** for the Iqra Techn
 8. Expense tracker with categories and spending summaries
 9. Registration form validation with country-to-currency mapping
 
-## Technology
+## Technology 
 
 - Semantic HTML5
 - Responsive CSS3
