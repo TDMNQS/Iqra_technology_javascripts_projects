@@ -2,7 +2,7 @@
 
 Nine working JavaScript projects created by **Numan Qureshi** for the Iqra Technology Academy assignment.
 
-## Projects
+## Projects 
 
 1. OTP generation and verification with a countdown timer
 2. Dynamic customer capture form for individuals and businesses
