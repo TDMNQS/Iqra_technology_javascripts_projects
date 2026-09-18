@@ -1,4 +1,4 @@
-# JavaScript Project Suite
+# JavaScript Project Suite 
 
 Nine working JavaScript projects created by **Numan Qureshi** for the Iqra Technology Academy assignment.
 
